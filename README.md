@@ -21,6 +21,14 @@ Or install it yourself as:
 
 ## Usage
 
+    config_env :test do
+      set 'omniauth.twitter', 'test'
+    end
+
+    config_env :production, :development do
+      set 'omniauth.twitter', 'live'
+    end
+
 
 ## Contributing
 
