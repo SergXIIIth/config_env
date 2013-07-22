@@ -7,7 +7,7 @@ Note. It similar to Sinarta configuration
 
 ## Installation
 
-Add this line to your application's Gemfile:
+Add this line to your application's Gemfile (as top as possible):
 
     gem 'config_env'
 
@@ -21,6 +21,8 @@ Or install it yourself as:
 
 ## Usage
 
+Create file `config_env.rb`:
+
     config_env :test do
       set 'omniauth.twitter', 'test'
     end
@@ -28,6 +30,10 @@ Or install it yourself as:
     config_env :production, :development do
       set 'omniauth.twitter', 'live'
     end
+
+Add line to `.gitignore`
+
+    config_env.rb
 
 
 ## Contributing
