@@ -1,5 +1,3 @@
-https://www.codeship.io/projects/6b792330-f114-0130-c9d2-3223cd47985b/status
-
 # ConfigEnv
 
 - Manage ENV[] variables
@@ -25,6 +23,12 @@ Or install it yourself as:
 
 Create file `config_env.rb`:
 
+    # any ENV['RACK_ENV']
+    config_env do 
+      set 'omniauth.twitter', 'all'
+    end
+
+    # only when ENV['RACK_ENV'] == :test
     config_env :test do
       set 'omniauth.twitter', 'test'
     end
@@ -37,6 +41,18 @@ Add line to `.gitignore`
 
     config_env.rb
 
+Add lines to `Rakefile`
+
+    require 'config_env/rake_tasks'
+    ConfigEnv.path = "#{__dir__}/ruby/config/config_env.rb"
+
+Configure Heroku according to config_env
+
+    rake config_env:heroku[app]
+
+Optionally, you can pass in the name of the Heroku app:
+
+    rake config_env:heroku[app-name]
 
 ## Contributing
 
