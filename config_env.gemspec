@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ['Sergey Makridenkov']
   spec.email         = ['sergey@makridenkov.com']
   spec.description   = %q{Manage ENV[] variables, upload ENV to Heroku}
-  spec.summary       = %q{Manage ENV[] variables, upload ENV to Heroku}
+  spec.summary       = %q{ENV manager for any Ruby code}
   spec.homepage      = ''
   spec.license       = 'MIT'
 
