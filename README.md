@@ -1,24 +1,14 @@
 # ConfigEnv
 
-ENV manager for any Ruby code
+Configurator of the `ENV['key']` for any Ruby environment
 
-- Manage ENV[] variables
-- Upload ENV to Heroku
-
-Note. It similar to Sinarta configuration
-
-## Installation
-
-Add to Gemfile (as top as possible):
-
-    gem 'config_env'
-
-And then execute:
-
-    $ bundle
+- Describe `ENV['key']` variables in config file with Ruby syntax
+- Upload the configured variables to Heroku
 
 
 ## Usage
+
+    gem 'config_env'
 
 Create file `config_env.rb`:
 
@@ -40,18 +30,18 @@ Add line to `.gitignore`
 
     config_env.rb
 
-### Heroku
+### Upload configurated variables to Heroku
 
-If you want use set env at Heroku. Add lines to `Rakefile`
+Add lines to `Rakefile`
 
     require 'config_env/rake_tasks'
     ConfigEnv.path = "#{__dir__}/ruby/config/config_env.rb"
 
-Configure Heroku according to config_env
+Run rake command
 
     rake config_env:heroku
 
-Optionally, you can pass in the name of the Heroku app:
+Optionally, you can pass in the name of the Heroku app
 
     rake config_env:heroku[app-name]
 
