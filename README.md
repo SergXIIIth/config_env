@@ -1,4 +1,4 @@
-# ConfigEnv - config your `ENV['variables']`
+# ConfigEnv - config your ENV['variables']
 
 Configurator of the `ENV['key']` for any Ruby environment
 
