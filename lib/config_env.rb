@@ -2,8 +2,11 @@ require "config_env/version"
 
 module ConfigEnv
   # path to config_env file. Used in app Rakefile
-  def self.path=(new_path)
+  def self.path_to_config(new_path)
     @path = new_path
+    if File.exists?(path)
+      Kernel.load(path)
+    end
   end
 
   def self.path
@@ -38,7 +41,7 @@ module ConfigEnv
     ENV['RACK_ENV'] || 'development'
   end
 
-  private
+private
 
   attr_accessor :vars
 

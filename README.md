@@ -1,41 +1,40 @@
-# ConfigEnv
+# ConfigEnv - config your `ENV['variables']`
 
 Configurator of the `ENV['key']` for any Ruby environment
 
 - Describe `ENV['key']` variables in config file with Ruby syntax
-- Upload the configured variables to Heroku
+- Upload the configuration to Heroku
 
 
 ## Usage
 
     gem 'config_env'
 
-Create file `config_env.rb`:
+    # Specify path your `config_env.rb`
+    ConfigEnv.path_to_config_env("#{__dir__}/config/config_env.rb")
+
+Create file `config/config_env.rb`:
 
     # any ENV['RACK_ENV']
     config_env do 
-      set 'omniauth.twitter', 'all'
+      set 'secret_key', 'value_for_all_RACK_ENV'
     end
 
     # only when ENV['RACK_ENV'] == :test
     config_env :test do
-      set 'omniauth.twitter', 'test'
+      set 'secret_key', 'overwrite_value_for_test_rack_env'
     end
 
     config_env :production, :development do
-      set 'omniauth.twitter', 'live'
+      set 'secret_key', 'overwrite_value_for_test_or_dev_rack_env'
     end
 
 Add line to `.gitignore`
 
     config_env.rb
 
+
 ### Upload configurated variables to Heroku
-
-Add lines to `Rakefile`
-
-    require 'config_env/rake_tasks'
-    ConfigEnv.path = "#{__dir__}/ruby/config/config_env.rb"
 
 Run rake command
 
