@@ -11,7 +11,7 @@ Configurator of the `ENV['key']` for any Ruby environment
     gem 'config_env'
 
     # Specify path your `config_env.rb`
-    ConfigEnv.path_to_config_env("#{__dir__}/config/config_env.rb")
+    ConfigEnv.path_to_config("#{__dir__}/config/config_env.rb")
 
 Create file `config/config_env.rb`:
 
@@ -35,6 +35,11 @@ Add line to `.gitignore`
 
 
 ### Upload configurated variables to Heroku
+
+Add to `Rakefile`
+
+    require 'config_env/rake_tasks'
+    ConfigEnv.path_to_config("#{__dir__}/config/config_env.rb")
 
 Run rake command
 
