@@ -1,5 +1,10 @@
 # ConfigEnv - config your ENV['variables']
 
+
+[![Code Climate](https://codeclimate.com/github/SergXIIIth/config_env.png)](https://codeclimate.com/github/SergXIIIth/config_env)
+[![Dependency Status](https://gemnasium.com/SergXIIIth/config_env.svg)](https://gemnasium.com/SergXIIIth/config_env)
+
+
 Configurator of the `ENV['key']` for any Ruby environment
 
 - Describe `ENV['key']` variables in config file with Ruby syntax
