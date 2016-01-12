@@ -13,19 +13,20 @@ Configurator of the `ENV['key']` for any Ruby environment
 
 ## Usage
 
+```ruby
     gem 'config_env'
 
     # Specify path your `config_env.rb`
     ConfigEnv.path_to_config("#{__dir__}/config/config_env.rb")
+```
 
-Create file `config/config_env.rb`:
+Create file `config/env.rb`:
 
-    # any ENV['RACK_ENV']
-    config_env do 
+```ruby
+    config_env do
       set 'secret_key', 'value_for_all_RACK_ENV'
     end
 
-    # only when ENV['RACK_ENV'] == :test
     config_env :test do
       set 'secret_key', 'overwrite_value_for_test_rack_env'
     end
@@ -33,10 +34,15 @@ Create file `config/config_env.rb`:
     config_env :production, :development do
       set 'secret_key', 'overwrite_value_for_test_or_dev_rack_env'
     end
+```
+
+For Rails add to `application.rb`
+
+    ConfigEnv.path_to_config("#{__dir__}/env.rb")
 
 Add line to `.gitignore`
 
-    config_env.rb
+    config/env.rb
 
 
 ### Upload configurated variables to Heroku

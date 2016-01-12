@@ -20,13 +20,13 @@ module ConfigEnv
       env = env.to_s
       @vars[env] ||= {}
       @vars[env].merge!(vars)
-    end 
+    end
   end
 
   def self.vars(environment = nil)
     environment ||= self.environment
     environment = environment.to_s
-    
+
     vars = (vars_hash[environment] || {}).clone
     vars.merge!(vars_hash["any"] || {})
 
@@ -79,7 +79,8 @@ def config_env(*envs, &code)
 
   envs = envs.size > 0 ? envs : ['any']
 
-
-  ConfigEnv.set_vars(command.vars, envs)
-  ConfigEnv.setup_env(command.vars, envs)
+  if command.vars
+    ConfigEnv.set_vars(command.vars, envs)
+    ConfigEnv.setup_env(command.vars, envs)
+  end
 end

@@ -2,8 +2,8 @@ require 'spec_helper'
 require 'ostruct'
 
 describe ConfigEnv do
-  let(:key){ "key_#{rnd}" }
-  let(:val){ "val_#{rnd}" }
+  let(:key){ "key_#{rand(1000)}" }
+  let(:val){ "val_#{rand(1000)}" }
 
   before { ConfigEnv.clear }
 
@@ -31,7 +31,6 @@ describe ConfigEnv do
     end
   end
 
-
   describe '.vars' do
     it 'returns empty hash by default' do
       ConfigEnv.vars.should == {}
@@ -51,8 +50,8 @@ describe ConfigEnv do
     it 'returns production and any envs values' do
       key = key()
       val = val()
-      key2 = "key2_#{rnd}"
-      val2 = "val2_#{rnd}"
+      key2 = "key2_#{rand(1000)}"
+      val2 = "val2_#{rand(1000)}"
 
       config_env :production do
         set key2, val2
@@ -91,6 +90,11 @@ describe ConfigEnv do
       ENV['omniauth.twitter'].should == 'test'
 
       ENV['RACK_ENV'] = old_rack_env
+    end
+
+    it 'allow empty in block' do
+      config_env do
+      end
     end
   end
 end
