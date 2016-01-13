@@ -1,4 +1,4 @@
-# Configurate ENV with Ruby syntax. Upload to Heroku
+## Configurate ENV with Ruby syntax. Upload to Heroku
 
 
 [![Code Climate](https://codeclimate.com/github/SergXIIIth/config_env.png)](https://codeclimate.com/github/SergXIIIth/config_env)
