@@ -1,4 +1,3 @@
-require 'spec_helper'
 require 'ostruct'
 
 describe ConfigEnv do
@@ -7,15 +6,15 @@ describe ConfigEnv do
 
   before { ConfigEnv.clear }
 
-  describe '.path_to_config' do
+  describe '.init' do
     let(:path){ double('path') }
-    subject(:path_to_config) { ConfigEnv.path_to_config(path) }
+    subject(:init) { ConfigEnv.init(path) }
 
     # on Heroku ENV set manually and config_env does not exist
     context 'when config_env not exist' do
       it 'do nothing' do
         expect(Kernel).to_not receive(:load)
-        path_to_config
+        init
       end
     end
 
@@ -26,7 +25,7 @@ describe ConfigEnv do
 
       it 'load config_env' do
         expect(Kernel).to receive(:load).with(path)
-        path_to_config
+        init
       end
     end
   end

@@ -1,31 +1,22 @@
 require "config_env/version"
 
 module ConfigEnv
-  # path to config_env file. Used in app Rakefile
+  # DEPRECATED. Use `init`
   def self.path_to_config(new_path)
-    @path = new_path
-    if File.exists?(path)
-      Kernel.load(path)
-    end
+    init(new_path)
+  end
+
+  def self.init(path_to_config)
+    @path = path_to_config
+    Kernel.load(path) if File.exists?(path)
   end
 
   def self.path
     @path
   end
 
-  def self.set_vars(vars, envs)
-    @vars ||= {}
-
-    envs.each do |env|
-      env = env.to_s
-      @vars[env] ||= {}
-      @vars[env].merge!(vars)
-    end
-  end
-
   def self.vars(environment = nil)
-    environment ||= self.environment
-    environment = environment.to_s
+    environment = (environment || self.environment).to_s
 
     vars = (vars_hash[environment] || {}).clone
     vars.merge!(vars_hash["any"] || {})
@@ -38,34 +29,36 @@ module ConfigEnv
   end
 
   def self.environment
-    ENV['RACK_ENV'] || 'development'
+    ENV['RAILS_ENV'] || ENV['RACK_ENV'] || 'development'
   end
 
 private
 
-  attr_accessor :vars
+  def self.set_envs(vars, envs)
+    envs = envs.map(&:to_s)
 
-  def self.vars_hash
-    @vars ||= {}
-  end
-
-  def self.setup_env(vars, envs)
-    if envs == ['any']
-      env_fit = true
-    else
-      env_fit = envs.map{|env| env.to_s}.include?(environment)
+    envs.each do |env|
+      vars_hash[env] ||= {}
+      vars_hash[env].merge!(vars)
     end
 
-    if env_fit
+    if envs == ['any'] || envs.include?(environment)
       vars.each do |key, value|
         ENV[key] = value
       end
     end
   end
 
-  class Command
+  def self.vars_hash
+    @vars ||= {}
+  end
+
+  class EnvWrap
+    def initialize
+      @vars = {}
+    end
+
     def set(key, value)
-      @vars ||= {}
       @vars[key] = value.to_s
     end
 
@@ -74,13 +67,10 @@ private
 end
 
 def config_env(*envs, &code)
-  command = ConfigEnv::Command.new
-  command.instance_eval(&code)
+  env_wrap = ConfigEnv::EnvWrap.new
+  env_wrap.instance_eval(&code)
 
   envs = envs.size > 0 ? envs : ['any']
 
-  if command.vars
-    ConfigEnv.set_vars(command.vars, envs)
-    ConfigEnv.setup_env(command.vars, envs)
-  end
+  ConfigEnv.set_envs(env_wrap.vars, envs)
 end

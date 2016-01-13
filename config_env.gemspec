@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = ConfigEnv::VERSION
   spec.authors       = ['Sergey Makridenkov']
   spec.email         = ['sergey@makridenkov.com']
-  spec.description   = %q{Manage ENV[] variables, upload ENV to Heroku}
-  spec.summary       = %q{ENV manager for any Ruby code}
+  spec.description   = %q{Configurate ENV with Ruby syntax. Upload to Heroku}
+  spec.summary       = %q{Configurate ENV variables depend on RACK_ENV. Configuration syntax is Ruby. Upload to Heroku supported}
   spec.homepage      = 'https://github.com/SergXIIIth/config_env'
   spec.license       = 'MIT'
 

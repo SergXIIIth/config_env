@@ -1,44 +1,44 @@
-# ConfigEnv - config your ENV['variables']
+# Configurate ENV with Ruby syntax. Upload to Heroku
 
 
 [![Code Climate](https://codeclimate.com/github/SergXIIIth/config_env.png)](https://codeclimate.com/github/SergXIIIth/config_env)
 [![Dependency Status](https://gemnasium.com/SergXIIIth/config_env.svg)](https://gemnasium.com/SergXIIIth/config_env)
 
 
-Configurator of the `ENV['key']` for any Ruby environment
+Features:
 
-- Describe `ENV['key']` variables in config file with Ruby syntax
-- Upload the configuration to Heroku
+- Describe `ENV['key']` configuration with Ruby syntax
+- Upload configuration to Heroku
 
 
 ## Usage
 
 ```ruby
     gem 'config_env'
-
-    # Specify path your `config_env.rb`
-    ConfigEnv.path_to_config("#{__dir__}/config/config_env.rb")
+    ConfigEnv.init("#{__dir__}/env.rb")
 ```
 
 Create file `config/env.rb`:
 
 ```ruby
     config_env do
-      set 'secret_key', 'value_for_all_RACK_ENV'
+      set 'all_env_key', '1'
     end
 
     config_env :test do
-      set 'secret_key', 'overwrite_value_for_test_rack_env'
+      set 'test_key', '2'
     end
 
     config_env :production, :development do
-      set 'secret_key', 'overwrite_value_for_test_or_dev_rack_env'
+      set 'production_and_development_key', '3'
     end
 ```
 
-For Rails add to `application.rb`
+Add to `application.rb`
 
-    ConfigEnv.path_to_config("#{__dir__}/env.rb")
+```ruby
+    ConfigEnv.init("#{__dir__}/env.rb")
+```
 
 Add line to `.gitignore`
 
@@ -49,16 +49,17 @@ Add line to `.gitignore`
 
 Add to `Rakefile`
 
+```ruby
     require 'config_env/rake_tasks'
-    ConfigEnv.path_to_config("#{__dir__}/config/config_env.rb")
+    ConfigEnv.init("#{__dir__}/config/env.rb")
+```
 
-Run rake command
+Run
 
+```bash
     rake config_env:heroku
-
-Optionally, you can pass in the name of the Heroku app
-
-    rake config_env:heroku[app-name]
+    rake config_env:heroku[app]
+```
 
 ## Contributing
 

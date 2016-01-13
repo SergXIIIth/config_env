@@ -1,4 +1,3 @@
-require 'spec_helper'
 require 'config_env/rake_tasks'
 
 module ConfigEnv::Tasks
